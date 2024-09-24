@@ -7,9 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,10 +31,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TaskManagerTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    TaskManager(
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Surface (
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    TaskCompletedScreen()
                 }
             }
         }
@@ -39,16 +43,18 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TaskManager(modifier: Modifier = Modifier) {
-    val image = painterResource(R.drawable.ic_task_completed)
+fun TaskCompletedScreen(modifier: Modifier = Modifier) {
     Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        val image = painterResource(R.drawable.ic_task_completed)
         Image(
             painter = image,
             contentDescription = null,
-            modifier = modifier
         )
         Text(
             text = stringResource(R.string.task_completed_title),
@@ -58,7 +64,6 @@ fun TaskManager(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(R.string.task_completed_description),
             fontSize = 16.sp,
-            modifier = modifier
         )
     }
 }
@@ -67,6 +72,6 @@ fun TaskManager(modifier: Modifier = Modifier) {
 @Composable
 fun TaskManagerPreview() {
     TaskManagerTheme {
-        TaskManager()
+        TaskCompletedScreen()
     }
 }
